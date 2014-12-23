@@ -23,10 +23,82 @@ type asset struct {
 	info  os.FileInfo
 }
 
+// static_d3_min_js reads file data from disk. It returns an error on failure.
+func static_d3_min_js() (*asset, error) {
+	path := "/home/lstep/.gvm/pkgsets/go1.4/sdr14/src/github.com/lstep/epochcharts/static/d3.min.js"
+	name := "static/d3.min.js"
+	bytes, err := bindata_read(path, name)
+	if err != nil {
+		return nil, err
+	}
+
+	fi, err := os.Stat(path)
+	if err != nil {
+		err = fmt.Errorf("Error reading asset info %s at %s: %v", name, path, err)
+	}
+
+	a := &asset{bytes: bytes, info: fi}
+	return a, err
+}
+
+// static_epoch_min_css reads file data from disk. It returns an error on failure.
+func static_epoch_min_css() (*asset, error) {
+	path := "/home/lstep/.gvm/pkgsets/go1.4/sdr14/src/github.com/lstep/epochcharts/static/epoch.min.css"
+	name := "static/epoch.min.css"
+	bytes, err := bindata_read(path, name)
+	if err != nil {
+		return nil, err
+	}
+
+	fi, err := os.Stat(path)
+	if err != nil {
+		err = fmt.Errorf("Error reading asset info %s at %s: %v", name, path, err)
+	}
+
+	a := &asset{bytes: bytes, info: fi}
+	return a, err
+}
+
+// static_epoch_min_js reads file data from disk. It returns an error on failure.
+func static_epoch_min_js() (*asset, error) {
+	path := "/home/lstep/.gvm/pkgsets/go1.4/sdr14/src/github.com/lstep/epochcharts/static/epoch.min.js"
+	name := "static/epoch.min.js"
+	bytes, err := bindata_read(path, name)
+	if err != nil {
+		return nil, err
+	}
+
+	fi, err := os.Stat(path)
+	if err != nil {
+		err = fmt.Errorf("Error reading asset info %s at %s: %v", name, path, err)
+	}
+
+	a := &asset{bytes: bytes, info: fi}
+	return a, err
+}
+
 // static_index_html reads file data from disk. It returns an error on failure.
 func static_index_html() (*asset, error) {
-	path := "/home/lstep/workspace/epochcharts/static/index.html"
+	path := "/home/lstep/.gvm/pkgsets/go1.4/sdr14/src/github.com/lstep/epochcharts/static/index.html"
 	name := "static/index.html"
+	bytes, err := bindata_read(path, name)
+	if err != nil {
+		return nil, err
+	}
+
+	fi, err := os.Stat(path)
+	if err != nil {
+		err = fmt.Errorf("Error reading asset info %s at %s: %v", name, path, err)
+	}
+
+	a := &asset{bytes: bytes, info: fi}
+	return a, err
+}
+
+// static_jquery_2_1_3_min_js reads file data from disk. It returns an error on failure.
+func static_jquery_2_1_3_min_js() (*asset, error) {
+	path := "/home/lstep/.gvm/pkgsets/go1.4/sdr14/src/github.com/lstep/epochcharts/static/jquery-2.1.3.min.js"
+	name := "static/jquery-2.1.3.min.js"
 	bytes, err := bindata_read(path, name)
 	if err != nil {
 		return nil, err
@@ -43,7 +115,7 @@ func static_index_html() (*asset, error) {
 
 // static_main_js reads file data from disk. It returns an error on failure.
 func static_main_js() (*asset, error) {
-	path := "/home/lstep/workspace/epochcharts/static/main.js"
+	path := "/home/lstep/.gvm/pkgsets/go1.4/sdr14/src/github.com/lstep/epochcharts/static/main.js"
 	name := "static/main.js"
 	bytes, err := bindata_read(path, name)
 	if err != nil {
@@ -100,7 +172,11 @@ func AssetNames() []string {
 
 // _bindata is a table, holding each asset generator, mapped to its name.
 var _bindata = map[string]func() (*asset, error){
+	"static/d3.min.js": static_d3_min_js,
+	"static/epoch.min.css": static_epoch_min_css,
+	"static/epoch.min.js": static_epoch_min_js,
 	"static/index.html": static_index_html,
+	"static/jquery-2.1.3.min.js": static_jquery_2_1_3_min_js,
 	"static/main.js": static_main_js,
 }
 
@@ -145,7 +221,15 @@ type _bintree_t struct {
 }
 var _bintree = &_bintree_t{nil, map[string]*_bintree_t{
 	"static": &_bintree_t{nil, map[string]*_bintree_t{
+		"d3.min.js": &_bintree_t{static_d3_min_js, map[string]*_bintree_t{
+		}},
+		"epoch.min.css": &_bintree_t{static_epoch_min_css, map[string]*_bintree_t{
+		}},
+		"epoch.min.js": &_bintree_t{static_epoch_min_js, map[string]*_bintree_t{
+		}},
 		"index.html": &_bintree_t{static_index_html, map[string]*_bintree_t{
+		}},
+		"jquery-2.1.3.min.js": &_bintree_t{static_jquery_2_1_3_min_js, map[string]*_bintree_t{
 		}},
 		"main.js": &_bintree_t{static_main_js, map[string]*_bintree_t{
 		}},

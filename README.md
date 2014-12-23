@@ -1,4 +1,4 @@
-debugcharts
+epochcharts
 ===========
 
 Go memory debug charts.

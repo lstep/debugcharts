@@ -15,7 +15,7 @@
 //
 //	http://localhost:6060/debug/charts
 //
-package debugcharts
+package epochcharts
 
 import (
 	"encoding/json"
@@ -26,7 +26,7 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
-	"github.com/mkevac/debugcharts/bindata"
+	"github.com/lstep/epochcharts/bindata"
 )
 
 type update struct {
@@ -118,6 +118,8 @@ func init() {
 	http.HandleFunc("/debug/charts/data", dataHandler)
 	http.HandleFunc("/debug/charts/", handleAsset("static/index.html"))
 	http.HandleFunc("/debug/charts/main.js", handleAsset("static/main.js"))
+	http.HandleFunc("/debug/charts/epoch.min.js", handleAsset("static/epoch.min.js"))
+	http.HandleFunc("/debug/charts/epoch.min.css", handleAsset("static/epoch.min.css"))
 
 	// preallocate arrays in data, helps save on reallocations caused by append()
 	// when maxCount is large

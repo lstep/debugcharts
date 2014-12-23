@@ -2,144 +2,76 @@ var chart1;
 var chart2;
 var ws;
 
-var lastGC = 0;
-var lastTotalAllocated = 0;
-
-var areaConfDefault = {
-	chart: {
-		type: 'spline',
-		renderTo: 'container2',
-		zoomType: 'x',
-	},
-	loading: {
-		labelStyle: {
-			top: '45%'
-		}
-	},
-	title: {
-		text: 'Memory in use'
-	},
-	subtitle: {
-		text: document.ontouchstart === undefined ?
-			'Click and drag in the plot area to zoom in' :
-			'Pinch the chart to zoom in'
-	},
-	yAxis: {
-		title: {
-			text: 'bytes'
-		}
-	},
-	legend: {
-		enabled: false
-	},
-	plotOptions: {
-		area: {
-			fillColor: {
-				linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
-				stops: [
-					[0, Highcharts.getOptions().colors[0]],
-					[1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
-				]
-			},
-			marker: {
-				radius: 2
-			},
-			lineWidth: 1,
-			states: {
-				hover: {
-					lineWidth: 1
-				}
-			},
-			threshold: null
-		}
-	},
-
-	series: [{
-		type: 'area',
-		name: 'Memory in use',
-		data: [],
-	}]
+/*
+var chart1Data = [
+{
+    label: "Bytes Allocated",
+    values: []
 }
+];*/
 
-function updateGC(data) {
-	var res = [];
-	for (var i=0; i<data.GcPauses.length; i++) {
-		res.push([data.GcPauses[i].T*1000, data.GcPauses[i].C])
-	}
-	chart1.series[0].setData(res, true);
-}
-
-function updateMemAllocated(data) {
-	var res = [];
-	for (var i=0; i<data.BytesAllocated.length; i++) {
-		res.push([data.BytesAllocated[i].T*1000, data.BytesAllocated[i].C])
-	}
-	chart2.series[0].setData(res, true);
-}
-
-function requestData() {
-	$.ajax({
-		url: "/debug/charts/data",
-		success: function(data) {
-			updateGC(data);
-			updateMemAllocated(data);
-		},
-		cache: false
-	});
-}
-
-function loadCallback() {
-	setTimeout(requestData, 100);
-}
-
-$(window).unload(function() {
-	ws.close();
+document.addEventListener('beforeunload',function(){
+    ws.close();
 });
 
-$(document).ready(function() {
-	var x = new Date();
-	Highcharts.setOptions({
-		global: {
-			timezoneOffset: x.getTimezoneOffset()
-		}
-	});
+document.addEventListener('DOMContentLoaded',function(){
 
-	var conf = $.extend(true, {}, areaConfDefault);
 
-	conf.chart.renderTo = 'container1';
-	conf.chart.events = {load: loadCallback};
-	conf.title.text = 'GC pauses';
-	conf.yAxis.title.text = 'nanoseconds';
-	conf.xAxis = {type: 'datetime'};
-	conf.series[0].name = 'GC pauses';
+    var Chart1Data = function() {
+        this.timestamp = ((new Date()).getTime() / 1000)|0;
+    }
 
-	chart1 = new Highcharts.Chart(conf);
+    Chart1Data.prototype.rand = function() {
+        return parseInt(Math.random() * 100) + 50;
+    };
 
-	var conf = $.extend(true, {}, areaConfDefault);
+    Chart1Data.prototype.history = function(entries) {
+        if (typeof(entries) != 'number' || !entries) {
+            entries = 60;
+        }
+        var history = []
+        history.push({ values: [] });
 
-	conf.chart.renderTo = 'container2';
-	conf.title.text = 'Memory in use';
-	conf.yAxis.title.text = 'bytes';
-	conf.xAxis = {type: 'datetime'};
-	conf.series[0].name = 'Memory in use';
+        for (var i = 0; i < entries; i++) {
+            history[0].values.push({time: this.timestamp, y: this.rand()})
+            this.timestamp++;
+        }
+        return history;
+    };
 
-	chart2 = new Highcharts.Chart(conf);
+    Chart1Data.prototype.next = function() {
+        var entry = [];
+        entry.push({time: this.timestamp, y: this.rand()})
 
-	var conf = $.extend(true, {}, areaConfDefault);
+    }
 
-	function wsurl() {
-		var l = window.location;
-		return ((l.protocol === "https:") ? "wss://" : "ws://") + l.hostname + (((l.port != 80) && (l.port != 443)) ? ":" + l.port : "") + "/debug/charts/data-feed";
-	}
+    var chart1Data = new Chart1Data(4);
 
-	ws = new WebSocket(wsurl());
-	ws.onopen = function () {
-		ws.onmessage = function (evt) {
-			var data = JSON.parse(evt.data);
-			if (data.GcPause != 0) {
-				chart1.series[0].addPoint([data.Ts*1000, data.GcPause], true);
-			}
-			chart2.series[0].addPoint([data.Ts*1000, data.BytesAllocated], true);
-		}
-	}
+
+    var myChart = $('#chart1').epoch({
+        type: 'time.area',
+        axes: ['left', 'bottom', 'right'],
+        data: chart1Data.history()
+    });
+
+    /* Websocket stuff and fetching callback */
+    function wsurl() {
+	var l = window.location;
+	return ((l.protocol === "https:") ? "wss://" : "ws://") + l.hostname + (((l.port != 80) && (l.port != 443)) ? ":" + l.port : "") + "/debug/charts/data-feed";
+    }
+
+    ws = new WebSocket(wsurl());
+    ws.onopen = function () {
+	ws.onmessage = function (evt) {
+	    var data = JSON.parse(evt.data);
+            the_date = ((new Date()).getTime() / 1000)|0;
+
+            //myChart.push([{time: the_date /1000, y: data.BytesAllocated}]);
+            myChart.push(chart1Data.next());
+
+
+	    //chart1.series[0].addPoint([data.Ts*1000, data.GcPause], true);
+    	    //chart2.series[0].addPoint([data.Ts*1000, data.BytesAllocated], true);
+        }
+    }
 })

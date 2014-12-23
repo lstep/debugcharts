@@ -4,9 +4,9 @@ import (
 	"log"
 	"net/http"
 
-	_ "github.com/mkevac/debugcharts"
+	_ "github.com/lstep/epochcharts"
 )
 
 func main() {
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	log.Fatal(http.ListenAndServe(":8088", nil))
 }
