@@ -11,11 +11,10 @@ Development
 You will need the go-binddata program/package to be able to integrate the JS/CSS files:
 `go get github.com/jteeuwen/go-bindata/...`
 
-Then, to compile the .go file that would include the .js & .css, just type :
+Then, to compile the .go file that would include the .js and .css, just type :
 
 ```
-go-bindata -debug=true -pkg="bindata" static/
-mv bindata.go bindata/
+go-bindata -debug=true -pkg="bindata" -o bindata/bindata.go static/
 ```
 
 Installation
