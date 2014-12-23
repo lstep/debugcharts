@@ -4,8 +4,6 @@ import (
 	"log"
 	"net/http"
 
-	_ "expvar"
-
 	_ "github.com/mkevac/debugcharts"
 )
 
