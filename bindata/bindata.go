@@ -25,7 +25,7 @@ type asset struct {
 
 // static_d3_min_js reads file data from disk. It returns an error on failure.
 func static_d3_min_js() (*asset, error) {
-	path := "/home/lstep/.gvm/pkgsets/go1.4/sdr14/src/github.com/lstep/epochcharts/static/d3.min.js"
+	path := "/home/lstep/.gvm/pkgsets/go1.4/global/src/github.com/lstep/epochcharts/static/d3.min.js"
 	name := "static/d3.min.js"
 	bytes, err := bindata_read(path, name)
 	if err != nil {
@@ -43,7 +43,7 @@ func static_d3_min_js() (*asset, error) {
 
 // static_epoch_min_css reads file data from disk. It returns an error on failure.
 func static_epoch_min_css() (*asset, error) {
-	path := "/home/lstep/.gvm/pkgsets/go1.4/sdr14/src/github.com/lstep/epochcharts/static/epoch.min.css"
+	path := "/home/lstep/.gvm/pkgsets/go1.4/global/src/github.com/lstep/epochcharts/static/epoch.min.css"
 	name := "static/epoch.min.css"
 	bytes, err := bindata_read(path, name)
 	if err != nil {
@@ -61,7 +61,7 @@ func static_epoch_min_css() (*asset, error) {
 
 // static_epoch_min_js reads file data from disk. It returns an error on failure.
 func static_epoch_min_js() (*asset, error) {
-	path := "/home/lstep/.gvm/pkgsets/go1.4/sdr14/src/github.com/lstep/epochcharts/static/epoch.min.js"
+	path := "/home/lstep/.gvm/pkgsets/go1.4/global/src/github.com/lstep/epochcharts/static/epoch.min.js"
 	name := "static/epoch.min.js"
 	bytes, err := bindata_read(path, name)
 	if err != nil {
@@ -79,7 +79,7 @@ func static_epoch_min_js() (*asset, error) {
 
 // static_index_html reads file data from disk. It returns an error on failure.
 func static_index_html() (*asset, error) {
-	path := "/home/lstep/.gvm/pkgsets/go1.4/sdr14/src/github.com/lstep/epochcharts/static/index.html"
+	path := "/home/lstep/.gvm/pkgsets/go1.4/global/src/github.com/lstep/epochcharts/static/index.html"
 	name := "static/index.html"
 	bytes, err := bindata_read(path, name)
 	if err != nil {
@@ -97,7 +97,7 @@ func static_index_html() (*asset, error) {
 
 // static_jquery_2_1_3_min_js reads file data from disk. It returns an error on failure.
 func static_jquery_2_1_3_min_js() (*asset, error) {
-	path := "/home/lstep/.gvm/pkgsets/go1.4/sdr14/src/github.com/lstep/epochcharts/static/jquery-2.1.3.min.js"
+	path := "/home/lstep/.gvm/pkgsets/go1.4/global/src/github.com/lstep/epochcharts/static/jquery-2.1.3.min.js"
 	name := "static/jquery-2.1.3.min.js"
 	bytes, err := bindata_read(path, name)
 	if err != nil {
@@ -115,7 +115,7 @@ func static_jquery_2_1_3_min_js() (*asset, error) {
 
 // static_main_js reads file data from disk. It returns an error on failure.
 func static_main_js() (*asset, error) {
-	path := "/home/lstep/.gvm/pkgsets/go1.4/sdr14/src/github.com/lstep/epochcharts/static/main.js"
+	path := "/home/lstep/.gvm/pkgsets/go1.4/global/src/github.com/lstep/epochcharts/static/main.js"
 	name := "static/main.js"
 	bytes, err := bindata_read(path, name)
 	if err != nil {

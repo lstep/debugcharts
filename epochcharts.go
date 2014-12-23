@@ -116,10 +116,10 @@ func (s *server) gatherData() {
 func init() {
 	http.HandleFunc("/debug/charts/data-feed", s.dataFeedHandler)
 	http.HandleFunc("/debug/charts/data", dataHandler)
-	http.HandleFunc("/debug/charts/", handleAsset("static/index.html"))
-	http.HandleFunc("/debug/charts/main.js", handleAsset("static/main.js"))
-	http.HandleFunc("/debug/charts/epoch.min.js", handleAsset("static/epoch.min.js"))
-	http.HandleFunc("/debug/charts/epoch.min.css", handleAsset("static/epoch.min.css"))
+	http.HandleFunc("/debug/charts/", handleAsset("static/index.html", "text/html"))
+	http.HandleFunc("/debug/charts/main.js", handleAsset("static/main.js", "text/javascript"))
+	http.HandleFunc("/debug/charts/epoch.min.js", handleAsset("static/epoch.min.js", "text/javascript"))
+	http.HandleFunc("/debug/charts/epoch.min.css", handleAsset("static/epoch.min.css", "text/css"))
 
 	// preallocate arrays in data, helps save on reallocations caused by append()
 	// when maxCount is large
@@ -237,8 +237,9 @@ func dataHandler(w http.ResponseWriter, r *http.Request) {
 	encoder.Encode(data)
 }
 
-func handleAsset(path string) func(http.ResponseWriter, *http.Request) {
+func handleAsset(path string, mimeType string) func(http.ResponseWriter, *http.Request) {
 	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", mimeType)
 		data, err := bindata.Asset(path)
 		if err != nil {
 			log.Fatal(err)

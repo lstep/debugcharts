@@ -2,14 +2,6 @@ var chart1;
 var chart2;
 var ws;
 
-/*
-var chart1Data = [
-{
-    label: "Bytes Allocated",
-    values: []
-}
-];*/
-
 document.addEventListener('beforeunload',function(){
     ws.close();
 });
@@ -67,7 +59,7 @@ document.addEventListener('DOMContentLoaded',function(){
             the_date = ((new Date()).getTime() / 1000)|0;
 
             //myChart.push([{time: the_date /1000, y: data.BytesAllocated}]);
-            myChart.push(chart1Data.next());
+            //myChart.push(chart1Data.next());
 
 
 	    //chart1.series[0].addPoint([data.Ts*1000, data.GcPause], true);
