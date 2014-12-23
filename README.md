@@ -8,11 +8,15 @@ This package uses chart library [Highcharts](http://www.highcharts.com/). It is 
 Development
 -----------
 
-You will need the go-binddata program/package to be able to integrate the JS/CSS files.
+You will need the go-binddata program/package to be able to integrate the JS/CSS files:
 `go get github.com/jteeuwen/go-bindata/...`
 
 Then, to compile the .go file that would include the .js & .css, just type :
-`go-bindata -debug=true -pkg="bindata" static/`
+
+```
+go-bindata -debug=true -pkg="bindata" static/
+mv bindata.go bindata/
+```
 
 Installation
 ------------
