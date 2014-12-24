@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded',function(){
 	    var data = JSON.parse(evt.data);
             the_date = ((new Date()).getTime() / 1000)|0;
 
-            myChart.push([{time: the_date /1000, y: data.BytesAllocated}]);
+            myChart.push([{time: the_date, y: data.BytesAllocated}]);
 
 	    //chart1.series[0].addPoint([data.Ts*1000, data.GcPause], true);
   	    //chart2.series[0].addPoint([data.Ts*1000, data.BytesAllocated], true);
