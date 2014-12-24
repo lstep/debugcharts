@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded',function(){
     }
 
     Chart1Data.prototype.rand = function() {
-        return parseInt(Math.random() * 100) + 50;
+        return 15000000; //parseInt(Math.random() * 10000000) + 50;
     };
 
     Chart1Data.prototype.history = function(entries) {
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded',function(){
 
 
     var myChart = $('#chart1').epoch({
-        type: 'time.area',
+        type: 'time.line',
         axes: ['left', 'bottom', 'right'],
         data: chart1Data.history()
     });
@@ -60,11 +60,8 @@ document.addEventListener('DOMContentLoaded',function(){
 
             myChart.push([{time: the_date /1000, y: data.BytesAllocated}]);
 
-            //myChart.push(chart1Data.next());
-
-
 	    //chart1.series[0].addPoint([data.Ts*1000, data.GcPause], true);
-    	    //chart2.series[0].addPoint([data.Ts*1000, data.BytesAllocated], true);
+  	    //chart2.series[0].addPoint([data.Ts*1000, data.BytesAllocated], true);
         }
     }
 })
