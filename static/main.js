@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded',function(){
     Chart1Data.prototype.next = function() {
         var entry = [];
         entry.push({time: this.timestamp, y: this.rand()})
-
+		return entry;
     }
 
     var chart1Data = new Chart1Data(4);
@@ -58,7 +58,8 @@ document.addEventListener('DOMContentLoaded',function(){
 	    var data = JSON.parse(evt.data);
             the_date = ((new Date()).getTime() / 1000)|0;
 
-            //myChart.push([{time: the_date /1000, y: data.BytesAllocated}]);
+            myChart.push([{time: the_date /1000, y: data.BytesAllocated}]);
+
             //myChart.push(chart1Data.next());
 
 
